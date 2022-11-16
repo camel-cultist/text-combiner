@@ -5,13 +5,15 @@ Do note you will have to change the directory on line 29 in order to use.
 """
 
 import tkinter as tk
-import os
-user = os.getlogin()
+from tkinter import filedialog as fd
 
 def combine():
     """Takes the text from text1 and text2 and combines them into a single .txt file, with text1 on the left and text2
     on the right, separated by spaces for each line.
     """
+    fileName = fd.asksaveasfilename(
+        filetypes=[("Text Files", "*.txt")]
+    )
     maxLength = 0
     i = 0
     endOfFile = False
@@ -27,7 +29,7 @@ def combine():
         if testLength > maxLength:
             maxLength = testLength
     maxSpacing = maxLength + 12  # I think 12 spaces looks the nicest
-    file = open(f'C:\\Users\\{user}\\Documents\\{entry.get()}.txt', 'a')
+    file = open(f'{fileName}.txt', 'a')
     for j in range(i):
         if j == 0:  # For loops start at 0, tkinter text starts at 1
             continue
@@ -45,9 +47,6 @@ label1.grid(row=0, column=0)
 
 text1 = tk.Text(width=40)
 text1.grid(row=1, column=0)
-
-entry = tk.Entry()
-entry.grid(row=1, column=1)
 
 button = tk.Button(text="Combine", command=combine)
 button.grid(row=2, column=1, padx=50)
