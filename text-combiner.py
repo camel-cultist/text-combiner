@@ -7,6 +7,7 @@ Do note you will have to change the directory on line 29 in order to use.
 import tkinter as tk
 from tkinter import filedialog as fd
 
+
 def combine():
     """Takes the text from text1 and text2 and combines them into a single .txt file, with text1 on the left and text2
     on the right, separated by spaces for each line.
@@ -30,10 +31,21 @@ def combine():
             maxLength = testLength
     maxSpacing = maxLength + 12  # I think 12 spaces looks the nicest
     file = open(f'{fileName}.txt', 'a')
-    for j in range(i):
-        if j == 0:  # For loops start at 0, tkinter text starts at 1
-            continue
-        file.write(text1.get(f"{j}.0", f"{j}.end").ljust(maxSpacing, ' ') + text2.get(f"{j}.0", f"{j}.end") + "\n")
+    if var.get() == 1:  # Centered text has been requested
+        for j in range(i):
+            if j == 0:  # For loops start at 0, tkinter text starts at 1
+                continue
+            file.write(
+                text1.get(
+                    f"{j}.0", f"{j}.end").center(maxSpacing, ' ').ljust(maxSpacing, ' ')
+                + text2.get(
+                    f"{j}.0", f"{j}.end").center(maxSpacing, ' ')
+                + "\n")
+    else:
+        for j in range(i):
+            if j == 0:
+                continue
+            file.write(text1.get(f"{j}.0", f"{j}.end").ljust(maxSpacing, ' ') + text2.get(f"{j}.0", f"{j}.end") + "\n")
     file.close()
 
 
@@ -48,11 +60,15 @@ label1.grid(row=0, column=0)
 text1 = tk.Text(width=40)
 text1.grid(row=1, column=0)
 
-button = tk.Button(text="Combine", command=combine)
-button.grid(row=2, column=1, padx=50)
+var = tk.IntVar()
+checkbox = tk.Checkbutton(text="Center text", variable=var)
+checkbox.grid(row=1, column=1)
 
-label2 = tk.Label(text="Right Text:")
-label2.grid(row=0, column=2)
+button = tk.Button(text="Combine", command=combine)
+button.grid(row=3, column=1, padx=50)
+
+label3 = tk.Label(text="Right Text:")
+label3.grid(row=0, column=2)
 
 text2 = tk.Text(width=40)
 text2.grid(row=1, column=2)
