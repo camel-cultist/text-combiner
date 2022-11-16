@@ -5,7 +5,9 @@ Do note you will have to change the directory on line 29 in order to use.
 """
 
 import tkinter as tk
+import os
 
+user = os.getlogin
 
 def combine():
     """Takes the text from text1 and text2 and combines them into a single .txt file, with text1 on the left and text2
@@ -26,7 +28,7 @@ def combine():
         if testLength > maxLength:
             maxLength = testLength
     maxSpacing = maxLength + 12  # I think 12 spaces looks the nicest
-    file = open(f'C:\\Users\\Liam\\Documents\\{entry.get()}.txt', 'a')  # TODO: Make this easier to modify
+    file = open(f'C:\\Users\\' +user, '\\Documents\\{entry.get()}.txt', 'a')  # hopefully make it work with other users
     for j in range(i):
         if j == 0:  # For loops start at 0, tkinter text starts at 1
             continue
