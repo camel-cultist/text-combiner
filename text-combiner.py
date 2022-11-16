@@ -1,7 +1,7 @@
 """
 Simple program that combines two texts into one text file while maintaining spacing. Uses tkinter as a graphical
 interface for text input.
-Do note you will have to change the directory on line 29 in order to use.
+https://github.com/camel-cultist/text-combiner
 """
 
 import tkinter as tk
@@ -29,9 +29,9 @@ def combine():
         endOfFile = False
         if testLength > maxLength:
             maxLength = testLength
-    maxSpacing = maxLength + 12  # I think 12 spaces looks the nicest
+    maxSpacing = maxLength + 12  # I think 12 spaces looks the nicest, but more might be needed for centered text
     file = open(f'{fileName}.txt', 'a')
-    if var.get() == 1:  # Centered text has been requested
+    if center.get() == 1:
         for j in range(i):
             if j == 0:  # For loops start at 0, tkinter text starts at 1
                 continue
@@ -60,8 +60,8 @@ label1.grid(row=0, column=0)
 text1 = tk.Text(width=40)
 text1.grid(row=1, column=0)
 
-var = tk.IntVar()
-checkbox = tk.Checkbutton(text="Center text", variable=var)
+center = tk.IntVar()
+checkbox = tk.Checkbutton(text="Center text", variable=center)
 checkbox.grid(row=1, column=1)
 
 button = tk.Button(text="Combine", command=combine)
